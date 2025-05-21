@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuphead Tips - Guia Definitiva</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Rubik+Mono+One&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/jpeg" href="cuphead-mumgn-bothers.png">
+    <style>
+        :root {
+            --primary: #e63946;
+            --secondary: #457b9d;
+            --accent: #f1faee;
+            --dark: #1d3557;
+            --light: #f8f9fa;
+            --retro-beige: #f5ebe0;
+        }
+        
+        body {
+            font-family: 'Press Start 2P', cursive;
+            background-color: var(--retro-beige);
+            color: #333;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+        
+        .hero {
+            height: 100vh;
+            background-image: url('https://www.gamegrin.com/assets/game/cuphead/_resampled/croppedimage1201631-cuphead-background.jpg');
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            animation: fadeIn 2s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 2rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: var(--primary);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+        
+        .section-title:hover::after {
+            transform: scaleX(1);
+        }
+        
+        .boss-card {
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+        
+        .boss-card:hover {
+            transform: translateY(-10px) rotateY(5deg);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .secret-item {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.5s ease;
+        }
+        
+        .secret-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .tip-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            transition: all 0.3s ease;
+        }
+        
+        .tip-card:hover .tip-icon {
+            transform: rotate(10deg) scale(1.2);
+            color: var(--secondary);
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .parallax {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+        }
+        
+        .parallax::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+        
+        .parallax-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .retro-border {
+            border: 4px dashed var(--dark);
+            box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.2);
+        }
+        
+        .retro-btn {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .retro-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: all 0.5s ease;
+        }
+        
+        .retro-btn:hover::before {
+            left: 100%;
+        }
+        
+        .retro-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <!-- Navbar -->
+    <nav class="bg-black text-white fixed w-full z-50 shadow-lg">
+        <div class="container mx-auto px-6 py-3">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                    <img src="cuphead-mumgn-bothers.png" alt="Cuphead Logo" class="h-12">
+                    <span class="ml-3 text-xl font-bold text-red-500">Cuphead Tips</span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="nav-link text-yellow-200 hover:text-red-500">Inicio</a>
+                    <a href="#bosses" class="nav-link text-yellow-200 hover:text-red-500">Jefes</a>
+                    <a href="#tips" class="nav-link text-yellow-200 hover:text-red-500">Tips</a>
+                    <a href="#secrets" class="nav-link text-yellow-200 hover:text-red-500">Secretos</a>
+                    <a href="#contact" class="nav-link text-yellow-200 hover:text-red-500">Contacto</a>
+                </div>
+                <div class="md:hidden">
+                    <button id="menu-btn" class="text-yellow-200 focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- Mobile menu -->
+            <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4">
+                <a href="#home" class="block py-2 text-yellow-200 hover:text-red-500">Inicio</a>
+                <a href="#bosses" class="block py-2 text-yellow-200 hover:text-red-500">Jefes</a>
+                <a href="#tips" class="block py-2 text-yellow-200 hover:text-red-500">Tips</a>
+                <a href="#secrets" class="block py-2 text-yellow-200 hover:text-red-500">Secretos</a>
+                <a href="#contact" class="block py-2 text-yellow-200 hover:text-red-500">Contacto</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content px-6">
+            <h1 class="text-4xl md:text-6xl font-bold text-yellow-200 mb-6 floating">Cuphead Tips</h1>
+            <p class="text-xl md:text-2xl text-white mb-8">La guía definitiva para dominar el juego</p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="#bosses" class="retro-btn bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300">
+                    <i class="fas fa-skull mr-2"></i> Guía de Jefes
+                </a>
+                <a href="#secrets" class="retro-btn bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300">
+                    <i class="fas fa-key mr-2"></i> Secretos Ocultos
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Boss Guide Section -->
+    <section id="bosses" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title text-3xl md:text-4xl text-center text-black mb-16">Guía de Jefes</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Boss Card 1 -->
+                <div class="boss-card bg-gray-100 rounded-lg overflow-hidden shadow-lg retro-border">
+                    <img src="https://m.media-amazon.com/images/M/MV5BNzEzYjMwMzktZjUwMy00YjhmLWI2MzctMDNmNzQ0MGI5ZDYzXkEyXkFqcGc@._V1_.jpg" alt="Ribby and Croaks" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-red-600 mb-3">Ribby & Croaks</h3>
+                        <p class="text-gray-700 mb-4">Primer jefe del Inkwell Isle One. Combate en dos fases: individual y combinados.</p>
+                        <button class="toggle-btn bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-all duration-300">
+                            <i class="fas fa-chevron-down mr-2"></i> Ver Estrategia
+                        </button>
+                        <div class="strategy-content hidden mt-4 text-sm text-gray-600">
+                            <ul class="list-disc pl-5 space-y-2">
+                                <li>En la primera fase, enfócate en uno a la vez (Ribby es más fácil).</li>
+                                <li>Cuando se combinan, muévete constantemente para evitar los proyectiles.</li>
+                                <li>Usa el dash para esquivar sus ataques de salto.</li>
+                                <li>En la fase de máquina tragaperras, quédate en el centro para tener más tiempo de reacción.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Boss Card 2 -->
+                <div class="boss-card bg-gray-100 rounded-lg overflow-hidden shadow-lg retro-border">
+                    <img src="https://static1.thegamerimages.com/wordpress/wp-content/uploads/2021/02/pjimage-1-9.jpg?q=70&fit=contain&w=1200&h=628&dpr=1" alt="Cagney Carnation" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-red-600 mb-3">Cagney Carnation</h3>
+                        <p class="text-gray-700 mb-4">Jefe vegetal que lanza semillas y flores mortales. Fase final muy rápida.</p>
+                        <button class="toggle-btn bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-all duration-300">
+                            <i class="fas fa-chevron-down mr-2"></i> Ver Estrategia
+                        </button>
+                        <div class="strategy-content hidden mt-4 text-sm text-gray-600">
+                            <ul class="list-disc pl-5 space-y-2">
+                                <li>Mantente en el aire con saltos y dash para evitar las semillas del suelo.</li>
+                                <li>Destruye las flores pequeñas que disparan inmediatamente.</li>
+                                <li>En la fase final, usa el super art invencible si tienes problemas.</li>
+                                <li>El arma Roundabout es excelente para este combate.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Boss Card 3 -->
+                <div class="boss-card bg-gray-100 rounded-lg overflow-hidden shadow-lg retro-border">
+                    <img src="https://static0.gamerantimages.com/wordpress/wp-content/uploads/2022/08/king-dice-cuphead-show.jpg" alt="King Dice" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-red-600 mb-3">King Dice</h3>
+                        <p class="text-gray-700 mb-4">El temido maestro de dados. Combate en múltiples fases con mini-jefes.</p>
+                        <button class="toggle-btn bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-all duration-300">
+                            <i class="fas fa-chevron-down mr-2"></i> Ver Estrategia
+                        </button>
+                        <div class="strategy-content hidden mt-4 text-sm text-gray-600">
+                            <ul class="list-disc pl-5 space-y-2">
+                                <li>Memoriza el patrón de dados para elegir mini-jefes fáciles (3, 6 y 8 son los más sencillos).</li>
+                                <li>En la fase de dados, salta justo cuando la mano va a golpear.</li>
+                                <li>Contra King Dice, usa el dash para pasar a través de sus cartas.</li>
+                                <li>Conserva tu super art para la fase final.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Parallax Section -->
+    <section class="parallax py-32" style="background-image: url('inkwell.jpg');">
+        <div class="parallax-content container mx-auto px-6 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-yellow-200 mb-6">Domina el Inkwell Isle</h2>
+            <p class="text-xl text-white max-w-3xl mx-auto">Descubre todos los secretos y conviértete en el mejor jugador de Cuphead con nuestros consejos expertos.</p>
+        </div>
+    </section>
+
+    <!-- Quick Tips Section -->
+    <section id="tips" class="py-20 bg-gray-100">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title text-3xl md:text-4xl text-center text-black mb-16">Tips Rápidos</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Tip 1 -->
+                <div class="tip-card bg-white p-6 rounded-lg shadow-md text-center retro-border hover:bg-red-50 transition-all duration-300">
+                    <div class="tip-icon">
+                        <i class="fas fa-running"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-red-600 mb-3">Movimiento Constante</h3>
+                    <p class="text-gray-700">Nunca te quedes quieto. La mayoría de los ataques se pueden evitar moviéndose constantemente.</p>
+                </div>
+                
+                <!-- Tip 2 -->
+                <div class="tip-card bg-white p-6 rounded-lg shadow-md text-center retro-border hover:bg-blue-50 transition-all duration-300">
+                    <div class="tip-icon">
+                        <i class="fas fa-crosshairs"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-blue-600 mb-3">Enfoque en el Personaje</h3>
+                    <p class="text-gray-700">Mira a tu personaje, no al jefe. Así podrás esquivar mejor los proyectiles.</p>
+                </div>
+                
+                <!-- Tip 3 -->
+                <div class="tip-card bg-white p-6 rounded-lg shadow-md text-center retro-border hover:bg-green-50 transition-all duration-300">
+                    <div class="tip-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-green-600 mb-3">Charm de Corazón</h3>
+                    <p class="text-gray-700">Si tienes problemas, usa el Smoke Dash y el Charm de Corazón Extra para más HP.</p>
+                </div>
+                
+                <!-- Tip 4 -->
+                <div class="tip-card bg-white p-6 rounded-lg shadow-md text-center retro-border hover:bg-yellow-50 transition-all duration-300">
+                    <div class="tip-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-yellow-600 mb-3">Combina Armas</h3>
+                    <p class="text-gray-700">Usa Peashooter para daño constante y Roundabout para cubrir áreas cuando no puedas apuntar.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Secrets Section -->
+    <section id="secrets" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title text-3xl md:text-4xl text-center text-black mb-16">Secretos Ocultos</h2>
+            
+            <div class="max-w-4xl mx-auto space-y-12">
+                <!-- Secret 1 -->
+                <div class="secret-item bg-gray-100 p-6 rounded-lg shadow-md retro-border">
+                    <div class="flex flex-col md:flex-row items-center">
+                        <div class="md:w-1/3 mb-4 md:mb-0">
+                            <img src="https://parzibyte.me/blog/wp-content/uploads/2022/02/Pelea-final-contra-King-Dice-en-Cuphead-Guia-para-derrotarlo.jpg" alt="Secret 1" class="w-full h-auto rounded-lg">
+                        </div>
+                        <div class="md:w-2/3 md:pl-8">
+                            <h3 class="text-xl font-bold text-purple-600 mb-3">Truco del Casino</h3>
+                            <p class="text-gray-700 mb-4">En el nivel de King Dice, puedes manipular el dado para elegir con qué mini-jefe luchar.</p>
+                            <p class="text-sm text-gray-600">Salta sobre el dado en el momento exacto para controlar el número. Practica el timing para obtener siempre los mini-jefes más fáciles (3, 6 u 8).</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Secret 2 -->
+                <div class="secret-item bg-gray-100 p-6 rounded-lg shadow-md retro-border">
+                    <div class="flex flex-col md:flex-row items-center">
+                        <div class="md:w-1/3 mb-4 md:mb-0">
+                            <img src="https://cdn.hobbyconsolas.com/sites/navi.axelspringer.es/public/media/image/2022/07/cuphead-delicious-last-course-2763907.jpg" alt="Secret 2" class="w-full h-auto rounded-lg">
+                        </div>
+                        <div class="md:w-2/3 md:pl-8">
+                            <h3 class="text-xl font-bold text-red-600 mb-3">Final Secreto</h3>
+                            <p class="text-gray-700 mb-4">Existe un final alternativo si decides aceptar el trato del Diablo.</p>
+                            <p class="text-sm text-gray-600">En lugar de derrotar al Diablo, puedes aceptar su oferta en la pelea final. Esto desbloquea un final alternativo donde Cuphead y Mugman trabajan para él.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Secret 3 -->
+                <div class="secret-item bg-gray-100 p-6 rounded-lg shadow-md retro-border">
+                    <div class="flex flex-col md:flex-row items-center">
+                        <div class="md:w-1/3 mb-4 md:mb-0">
+                            <img src="https://nintenduo.com/wp-content/uploads/2022/06/Cuphead-Jefes.webp" alt="Secret 3" class="w-full h-auto rounded-lg">
+                        </div>
+                        <div class="md:w-2/3 md:pl-8">
+                            <h3 class="text-xl font-bold text-blue-600 mb-3">Personaje Secreto</h3>
+                            <p class="text-gray-700 mb-4">Puedes desbloquear a Chalice como personaje jugable.</p>
+                            <p class="text-sm text-gray-600">Completa el DLC "The Delicious Last Course" y derrota a todos los jefes en modo Simple para desbloquear a Ms. Chalice como personaje jugable en la partida principal.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-gray-900 text-white">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title text-3xl md:text-4xl text-center text-yellow-200 mb-16">Contacto</h2>
+            
+            <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="text-xl font-bold text-red-400 mb-6">Envía tus propios tips</h3>
+                    <form class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-yellow-100 mb-1">Nombre</label>
+                            <input type="text" id="name" class="w-full px-4 py-2 rounded bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-red-500">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-yellow-100 mb-1">Email</label>
+                            <input type="email" id="email" class="w-full px-4 py-2 rounded bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-red-500">
+                        </div>
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-yellow-100 mb-1">Tu tip o secreto</label>
+                            <textarea id="message" rows="4" class="w-full px-4 py-2 rounded bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-red-500"></textarea>
+                        </div>
+                        <button type="submit" class="retro-btn bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 w-full">
+                            <i class="fas fa-paper-plane mr-2"></i> Enviar
+                        </button>
+                    </form>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold text-blue-400 mb-6">Síguenos</h3>
+                    <div class="space-y-6">
+                        <div class="flex items-center space-x-4">
+                            <div class="bg-red-600 p-3 rounded-full">
+                                <i class="fab fa-youtube text-white text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold">YouTube</h4>
+                                <p class="text-sm text-gray-300">@CupheadTipsOfficial</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center space-x-4">
+                            <div class="bg-blue-500 p-3 rounded-full">
+                                <i class="fab fa-twitter text-white text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold">Twitter</h4>
+                                <p class="text-sm text-gray-300">@CupheadTips</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center space-x-4">
+                            <div class="bg-purple-600 p-3 rounded-full">
+                                <i class="fab fa-discord text-white text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold">Discord</h4>
+                                <p class="text-sm text-gray-300">Cuphead Tips Community</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-12">
+                        <h3 class="text-xl font-bold text-green-400 mb-4">Newsletter</h3>
+                        <p class="text-sm text-gray-300 mb-4">Suscríbete para recibir los últimos tips y secretos directamente en tu email.</p>
+                        <div class="flex">
+                            <input type="email" placeholder="Tu email" class="px-4 py-2 rounded-l bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-green-500 w-full">
+                            <button class="bg-green-600 hover:bg-green-700 text-white px-4 rounded-r">
+                                <i class="fas fa-check"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black py-8 text-gray-400">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <img src="cuphead-mumgn-bothers.png" alt="Cuphead Logo" class="h-10">
+                    <p class="text-sm mt-2">© 2023 Cuphead Tips. No afiliado a Pedro Giorgi.</p>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-yellow-200 transition-colors duration-300">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-yellow-200 transition-colors duration-300">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-yellow-200 transition-colors duration-300">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-yellow-200 transition-colors duration-300">
+                        <i class="fab fa-twitch"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-sm">
+                <p>Cuphead es una marca registrada de ni putisima idea de quien. Este sitio es solo para fines educativos y de entretenimiento (ponele, me la pidio un amigo).</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="fixed bottom-8 right-8 bg-red-600 text-white p-3 rounded-full shadow-lg opacity-0 invisible transition-all duration-300">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('menu-btn').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Toggle boss strategies
+        document.querySelectorAll('.toggle-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const content = this.nextElementSibling;
+                content.classList.toggle('hidden');
+                
+                if (content.classList.contains('hidden')) {
+                    this.innerHTML = '<i class="fas fa-chevron-down mr-2"></i> Ver Estrategia';
+                } else {
+                    this.innerHTML = '<i class="fas fa-chevron-up mr-2"></i> Ocultar Estrategia';
+                }
+            });
+        });
+
+        // Scroll reveal for secret items
+        const secretItems = document.querySelectorAll('.secret-item');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        secretItems.forEach(item => {
+            observer.observe(item);
+        });
+
+        // Back to top button
+        const backToTopButton = document.getElementById('back-to-top');
+        
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.remove('opacity-0', 'invisible');
+                backToTopButton.classList.add('opacity-100', 'visible');
+            } else {
+                backToTopButton.classList.remove('opacity-100', 'visible');
+                backToTopButton.classList.add('opacity-0', 'invisible');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    const mobileMenu = document.getElementById('mobile-menu');
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
